@@ -20,10 +20,10 @@ setwd("H:/stat215")
 
 # Load data 
 library(readr)
-raw_data <- read_csv("raw_data.csv")
+raw_data <- read_csv("dataset.csv")
 dataset <- na.omit(raw_data)
 View(dataset)
-
+#including our data set is what allows the script to analyze and complete all of these tests#
 ##################################################################################
 ############### Table 1: descriptive statistics    ####################   
 ##################################################################################
@@ -31,21 +31,21 @@ table(dataset$funding)
 
 table(dataset$salary)
 
-
 summary(dataset$homeless)
 sd(dataset$homeless)
 
 
 summary(dataset$reduced_lunch)
 sd(dataset$reduced_lunch)
-
-
+#standard deveation for variable 1-reduced lunch#
+#homeless and reduced lunch 
 
 
 
 ##################################################################################
 #################### Figure 1: boxplot             ####################   
 ##################################################################################
+#creates the boxplot representing the relatiosnhip between homelessness and funding#
 boxplot(homeless ~ funding, data = dataset)
 anova <- aov(homeless ~ funding, data = dataset)
 summary(anova)
@@ -57,8 +57,9 @@ summary(anova)
 ##################################################################################
 ####################   Figure 2: scatter plot             ####################   
 ##################################################################################
-plot(dataset$quantIV, dataset$quantDV)
+plot(dataset$reduced_lunch, dataset$homeless)
 
+#what will help us find the mean of homelessness and reduced lunch#
 meany <- mean(dataset$homeless)
 meanx <- mean(dataset$reduced_lunch)
 abline(h = meanx, col = "black")
@@ -67,31 +68,16 @@ linear_relationship <- lm(homeless ~ reduced_lunch, data = dataset)
 summary(linear_relationship)
 abline(linear_relationship, col = "red")
 
+#this will make the scatterplot to find the relationship between homelessness and reduced lunch 
 
-meany <- mean(dataset_withououtlier$song_length)
-meanx <- mean(dataset_withououtlier$personal_enjoyment)
-abline(h = meanx, col = "black")
-abline(v = meany, col = "black")
-linear_relationship <- lm(personal_enjoyment ~ song_length, data = dataset)
-summary(linear_relationship)
-abline(linear_relationship, col = "red")
 
-linear_plot <- plot(dataset_withoutlistensoutlier$number_of_listens, dataset_withoutlistensoutlier$personal_enjoyment)
-print(linear_plot)
-meany <- mean(dataset_withoutlistensoutlier$number_of_listens)
-meanx <- mean(dataset_withoutlistensoutlier$personal_enjoyment)
-abline(h = meanx, col = "black")
-abline(v = meany, col = "black")
-linear_relationship <- lm(personal_enjoyment ~ number_of_listens, data = dataset_withoutlistensoutlier)
-summary(linear_relationship)
-abline(linear_relationship, col = "red")
 
 ##################################################################################
 ####################  Figure 3: residual plot                ####################   
 ##################################################################################
 # Plot the residuals
-plot(dataset$song_length, residuals(linear_relationship))
-plot(dataset_withoutlistensoutlier$number_of_listens, residuals(linear_relationship))
+plot(dataset$reduced_lunch, residuals(linear_relationship))
+
 
 # Add a horizontal line at zero to indicate the baseline
 abline(h = 0, col = "red")
